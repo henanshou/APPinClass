@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">摄氏度转华氏度</string>
+    <string name="button">点击转为华氏度</string>
+</resources>

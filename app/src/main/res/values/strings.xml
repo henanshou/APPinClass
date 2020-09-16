@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">APPinClass</string>
+    <string name="button">Click to convert to Fahrenheit degree</string>
+</resources>
