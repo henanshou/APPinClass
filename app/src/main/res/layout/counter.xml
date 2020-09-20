@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/linearLayout">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/textView"
+        android:textSize="25dp"
+        tools:layout_conversion_absoluteHeight="34dp"
+        tools:layout_conversion_absoluteWidth="87dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textView2"
+        android:textSize="40dp"
+        android:gravity="center_horizontal"
+        tools:layout_conversion_absoluteHeight="54dp"
+        tools:layout_conversion_absoluteWidth="22dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="34dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addScore"
+        android:text="@string/button3"
+        android:layout_margin="30dp"
+        android:tag="3"
+        tools:layout_conversion_absoluteHeight="48dp"
+        tools:layout_conversion_absoluteWidth="93dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="88dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addScore"
+        android:text="@string/button2"
+        android:layout_margin="30dp"
+        android:tag="2"
+        tools:layout_conversion_absoluteHeight="48dp"
+        tools:layout_conversion_absoluteWidth="93dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="136dp" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addScore"
+        android:text="@string/button1"
+        android:layout_margin="30dp"
+        android:tag="1"
+        tools:layout_conversion_absoluteHeight="48dp"
+        tools:layout_conversion_absoluteWidth="93dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:onClick="Reset"
+        android:text="@string/reset"
+        android:layout_gravity="center"
+        tools:layout_conversion_absoluteHeight="48dp"
+        tools:layout_conversion_absoluteWidth="88dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="232dp" />
+
+</LinearLayout>

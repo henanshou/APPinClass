@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/msg"
+        android:id="@+id/home_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
         android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="Hello World!" />
+        android:text="@string/home_page" />
 
-    <!--        android:layout_weight="1"-->
-    <EditText
-        android:id="@+id/edit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="请输入摄氏度"
-        tools:targetApi="o"
-        android:inputType="textPersonName" />
-
-<!--    android:onClick=""，点击按钮就会调用该方法就不用绑监听器、实现接口，更方便-->
     <Button
-        android:id="@+id/button"
+        android:id="@+id/temperature"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button" />
+        android:onClick="jumpTemperature"
+        android:textSize="30dp"
+        android:text="@string/temperature" />
+
+    <Button
+        android:id="@+id/counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="jumpCounter"
+        android:textSize="30dp"
+        android:text="@string/counter" />
 
 </LinearLayout>

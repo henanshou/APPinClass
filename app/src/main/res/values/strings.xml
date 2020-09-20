@@ -1,4 +1,15 @@
 <resources>
+    <string name="home_page">Chose function</string>
+    <string name="temperature">temperature</string>
+    <string name="counter">counter</string>
+
     <string name="app_name">APPinClass</string>
     <string name="button">Click to convert to Fahrenheit degree</string>
+
+    <string name="textView">Team A</string>
+    <string name="textView2" translatable="false">0</string>
+    <string name="button3">+3 POINTS</string>
+    <string name="button2">+2 POINTS</string>
+    <string name="button1">+1 POINTS</string>
+    <string name="reset">RESET</string>
 </resources>
