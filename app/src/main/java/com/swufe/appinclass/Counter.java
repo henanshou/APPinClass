@@ -17,15 +17,24 @@ public class Counter extends AppCompatActivity {
         setContentView(R.layout.counter);
     }
 
-    public void addScore(View view){
-        TextView score = (TextView)findViewById(R.id.textView2);
+    public void teamA_AddScore(View view){
+        TextView score = (TextView)findViewById(R.id.ScoreA);
         int previousScore = Integer.parseInt(score.getText().toString());
         int presentScore = Integer.parseInt(view.getTag().toString());
         score.setText(Integer.toString(previousScore+presentScore));
     }
 
-    public void Reset(View view){
-        TextView score = (TextView)findViewById(R.id.textView2);
-        score.setText("0");
+    public void teamB_AddScore(View view){
+        TextView score = (TextView)findViewById(R.id.ScoreB);
+        int previousScore = Integer.parseInt(score.getText().toString());
+        int presentScore = Integer.parseInt(view.getTag().toString());
+        score.setText(Integer.toString(previousScore+presentScore));
+    }
+
+    public void reset(View view){
+        TextView scoreA = (TextView)findViewById(R.id.ScoreA);
+        TextView scoreB = (TextView)findViewById(R.id.ScoreB);
+        scoreA.setText("0");
+        scoreB.setText("0");
     }
 }

@@ -18,6 +18,15 @@
         </activity>
         <activity android:name=".Temperature" />
         <activity android:name=".Counter" />
+        <activity android:name=".ExchangeRate" />
+        <activity android:name=".ExchangeRate2" />
     </application>
 
 </manifest>
+
+<!-- activity内，有这部分才可以运行-->
+<!--<intent-filter>-->
+<!--<action android:name="android.intent.action.MAIN" />-->
+
+<!--<category android:name="android.intent.category.LAUNCHER" />-->
+<!--</intent-filter>-->

@@ -5,11 +5,21 @@
 
     <string name="app_name">APPinClass</string>
     <string name="button">Click to convert to Fahrenheit degree</string>
-
-    <string name="textView">Team A</string>
-    <string name="textView2" translatable="false">0</string>
-    <string name="button3">+3 POINTS</string>
-    <string name="button2">+2 POINTS</string>
-    <string name="button1">+1 POINTS</string>
+    <string name="save">SAVE</string>
+    <string name="config">CONFIG</string>
+    <string name="exchange_rate">Exchange Rate</string>
+    <string name="dollar">DOLLAR</string>
+    <string name="euro">EURO</string>
+    <string name="won">WON</string>
+    <string name="textViewA">Team A</string>
+    <string name="textViewB">Team B</string>
+    <string name="ScoreA" translatable="false">0</string>
+    <string name="ScoreB" translatable="false">0</string>
+    <string name="button23">+3 POINTS</string>
+    <string name="button22">+2 POINTS</string>
+    <string name="button21">FREE THROW</string>
+    <string name="button13">+3 POINTS</string>
+    <string name="button12">+2 POINTS</string>
+    <string name="button11">FREE THROW</string>
     <string name="reset">RESET</string>
 </resources>
