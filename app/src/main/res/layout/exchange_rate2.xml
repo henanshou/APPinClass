@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:layout_marginTop="16dp"
         android:hint="@string/dollar" />
 
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:layout_marginTop="16dp"
         android:text="@string/euro" />
 
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:layout_marginTop="16dp"
         android:text="@string/won" />
 

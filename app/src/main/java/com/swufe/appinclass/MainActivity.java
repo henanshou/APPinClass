@@ -23,14 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //显示菜单项
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {//显示菜单项
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.first_menu,menu);
         return true;
     }
 
+    //判断点击了哪个菜单项，并实现功能
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {//判断点击了哪个菜单项，并实现功能
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.menu1){
             //事件处理代码
 
