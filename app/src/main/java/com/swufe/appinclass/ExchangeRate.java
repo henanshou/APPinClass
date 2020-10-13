@@ -51,7 +51,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
 //    double euro_rate;
 //    double won_rate;
 
-//    将输入流转化为字符串
+//    将输入流转化为字符串(run()中要用)
     private String inputStream2String(InputStream inputStream)
             throws IOException {
         final int bufferSize = 1024;
@@ -67,7 +67,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
         return out.toString();
     }
 
-//    将HTML得到的字符串分别装入ArrayList
+//    -------方法一：将HTML得到的字符串分别装入ArrayList--------
     public ArrayList<String> getRate(String str){
 //        for(String a:str.split("\\s+")){
 //            Log.i(TAG, "getRate: newstr:\n"+a);
@@ -150,6 +150,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
         return arrayList;
     }
 
+//    -----------方法二：用jsoup解析网页数据---------
     int length = 3;
     public double[] getRate2(){
         double rate[] = new double[length];
@@ -192,7 +193,6 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
 //                System.out.println(td1+"==>"+td2);
 //            }
 //        }
-
         return rate;
     }
 
@@ -211,7 +211,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
             String html = inputStream2String(in);
             Log.i(TAG, "run: htmlCode:\n"+html);
 
-//            -------用正则分离出的汇率-------
+//            -------方法一：用正则分离出的汇率-------
 //            将ArrayList<String>类型的动态数组转为string
             arrayList = getRate(html);
             StringBuilder stringBuilder = new StringBuilder();
@@ -258,7 +258,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
             e.printStackTrace();
         }
 
-//        ------用jsoup分离出的汇率--------
+//        ------方法2：用jsoup分离出的汇率--------
         double rate[] = getRate2();
         euro_rate = rate[0];
         won_rate = rate[1];
@@ -292,7 +292,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
         };
 //        获取Msg对象，用于返回主线程
         Message msg = handler.obtainMessage(5);
-//        msg.what = 5;
+        msg.what = 5;//这里设置是为了MyListActivity中要用
         msg.obj = "Hello from run()";
         handler.sendMessage(msg);
     }
@@ -339,7 +339,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode==1 && resultCode==2){
-            //读取bundle中传回数据
+            //方法a：读取bundle中传回数据
             Bundle bundle = data.getExtras();
             dollar_rate = bundle.getDouble("key_dollar",0.1f);
             euro_rate = bundle.getDouble("key_euro",0.1f);
@@ -348,7 +348,7 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
             Log.i(TAG, "onActivityResult: euro_rate=" + euro_rate);
             Log.i(TAG, "onActivityResult: won_rate=" + won_rate);
 
-            //使用myrate.XML中汇率看是否成功存入、读取
+            //方法b：使用myrate.XML中汇率看是否成功存入、读取
             SharedPreferences sharedPreferences = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
             dollar_rate = sharedPreferences.getFloat("key_dollar2",0.0f);
             euro_rate = sharedPreferences.getFloat("key_euro2",0.0f);
@@ -361,5 +361,12 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
             Log.i(TAG, "onActivityResult: won_rate2=" + won_rate);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+//    点击后，跳转到ListView的方法
+    public void jumpToListView(View view){
+        Intent intent = new Intent();
+        intent.setClass(this, MyListActivity.class);
+        startActivity(intent);
     }
 }

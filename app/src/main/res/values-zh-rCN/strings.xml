@@ -20,4 +20,5 @@
     <string name="euro">欧元</string>
     <string name="won">韩元</string>
     <string name="config">设置汇率</string>
+    <string name="show">显示汇率</string>
 </resources>

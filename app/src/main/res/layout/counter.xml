@@ -33,7 +33,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:text="@string/textViewA"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/ScoreA"
@@ -41,13 +41,13 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:layout_gravity="center"
-                        android:textSize="80dp"
+                        android:textSize="80sp"
                         android:layout_marginTop="16dp"/>
 
                     <Button
                         android:id="@+id/button13"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="122dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="24dp"
                         android:layout_marginRight="24dp"
@@ -99,7 +99,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="16dp"
                         android:text="@string/textViewB"
-                        android:textSize="20dp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                         android:id="@+id/ScoreB"
                         android:text="0"
                         android:layout_gravity="center"
-                        android:textSize="80dp"
+                        android:textSize="80sp"
                         android:layout_marginTop="16dp"/>
 
                     <Button

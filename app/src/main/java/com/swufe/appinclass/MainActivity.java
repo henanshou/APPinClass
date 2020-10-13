@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void jumpExchangeRate(View view) { //跳转到计分器页面
         Intent intent = new Intent();
         intent.setClass(MainActivity.this, ExchangeRate.class);

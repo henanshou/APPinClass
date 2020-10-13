@@ -22,7 +22,7 @@
         android:text="@string/exchange_rate"
         android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/dollar"
@@ -31,18 +31,18 @@
         android:layout_gravity="center_horizontal"
         android:onClick="exchangeRate"
         android:layout_margin="16dp"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:text="@string/dollar" />
 
     <Button
         android:id="@+id/euro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="exchangeRate"
-        android:layout_margin="16dp"
-        android:textSize="25dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/euro" />
+        android:layout_margin="16dp"
+        android:onClick="exchangeRate"
+        android:text="@string/euro"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/won"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:onClick="exchangeRate"
         android:text="@string/won" />
 
@@ -60,8 +60,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
-        android:textSize="25dp"
         android:onClick="jumpExchangeRate2"
-        android:text="@string/config" />
+        android:text="@string/config"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:onClick="jumpToListView"
+        android:textSize="25sp"
+        android:text="@string/show" />
 
 </LinearLayout>
