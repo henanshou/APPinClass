@@ -363,10 +363,16 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-//    点击后，跳转到ListView的方法
+//    点击后，跳转到show_rate_in_listview的方法
     public void jumpToListView(View view){
         Intent intent = new Intent();
         intent.setClass(this, MyListActivity.class);
+        startActivity(intent);
+    }
+//    点击后，跳转到list_item的方法
+    public void jumpToListItem(View view){
+        Intent intent = new Intent();
+        intent.setClass(this, MyListItem.class);
         startActivity(intent);
     }
 }

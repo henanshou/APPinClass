@@ -1,14 +1,20 @@
 package com.swufe.appinclass;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jsoup.Jsoup;
@@ -27,11 +33,21 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-/*---------实现show_rate_in_listview页面显示汇率在list_view上-------*/
-public class MyListActivity extends AppCompatActivity implements Runnable {
-    static MyListActivity m =null;
+/*------对MyListActivity的改进，改为用listitem显示------*/
+public class MyListItem extends AppCompatActivity implements Runnable, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+    private static final String TAG = "MyListActivity";
+    int flag = 0;//0表示非同一天，否则表示同一天
+    int flag2 = 0;//0表示是第一次运行，否则非第一次运行
+
+    static MyListItem m =null;
+    AlertDialog.Builder builder;
+    ListView listView;
+    MyAdapter myAdapter;
+    ArrayList<HashMap<String, String>> listItems;
 
     private String inputStream2String(InputStream inputStream)
             throws IOException {
@@ -61,41 +77,38 @@ public class MyListActivity extends AppCompatActivity implements Runnable {
         return true;
     }
 
-    private static final String TAG = "MyListActivity";
-    int flag = 0;//0表示非同一天，否则表示同一天
-    int flag2 = 0;//0表示是第一次运行，否则非第一次运行
-    ListView listView;
 
     //    Handler只是用于获取信息的工具
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             listView = findViewById(R.id.myList);
+
 //            获取系统日期（HH:mm:ss也可以获取时分秒）
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date nowDate = new Date(System.currentTimeMillis());
             String string = simpleDateFormat.format(nowDate);//Date转换为String
 
-            //systemTime.xml不存在则直接解析
-            if(fileIsExists("data/data/com.swufe.appinclass/shared_prefs/systemTime.xml") == true){
-                SharedPreferences sharedPreferences = getSharedPreferences("systemTime", Activity.MODE_PRIVATE);
+            //systemTime2.xml不存在则直接解析
+            if(fileIsExists("data/data/com.swufe.appinclass/shared_prefs/systemTime2.xml") == true){
+                SharedPreferences sharedPreferences = getSharedPreferences("systemTime2", Activity.MODE_PRIVATE);
                 String pastDate = sharedPreferences.getString("date","");
                 flag2++;
                 if(string.equals(pastDate)){//同一天则flag！=0
                     Log.i(TAG, "handleMessage: 是同一天");
                     flag++;
-                }else {//不是同一天，更新systemTime.XML
+                }else {//不是同一天，更新systemTime2.XML
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("date", string);
                     editor.commit();
-                    Toast.makeText(MyListActivity.this, "systemTime.XML is updated!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyListItem.this, "systemTime2.XML is updated!!", Toast.LENGTH_SHORT).show();
                 }
             }else {//是第一次
-                SharedPreferences sharedPreferences = getSharedPreferences("systemTime", Activity.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("systemTime2", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("date", string);
                 editor.commit();
-                Toast.makeText(MyListActivity.this, "systemTime.XML is created!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyListItem.this, "systemTime2.XML is created!!", Toast.LENGTH_SHORT).show();
             }
 
             //这里用的与exchange_rate中不同，是将HTML解析后转化成字符串再用Jsoup分析
@@ -107,18 +120,25 @@ public class MyListActivity extends AppCompatActivity implements Runnable {
                 Element table = tables.get(0);//因为本网页只有一个table，等价于.first()
                 Elements tds = table.getElementsByTag("td");//从table中找<td>，即列
 
-                ArrayList<String> arrayList = new ArrayList<String>();
+                listItems = new ArrayList<HashMap<String, String>>();
                 for (int i = 0; i < tds.size(); i += 6) {
+                    HashMap<String, String> map = new HashMap<String, String>();
                     Element td1 = tds.get(i);
                     Element td2 = tds.get(i + 5);
                     String str1 = td1.text();
                     String val = td2.text();
                     Log.i(TAG, "MyListActivity: " + str1 + "==>" + val);
-                    arrayList.add(str1 + "==>" + val);
+                    map.put("ItemTitle",str1);//  币种
+                    map.put("ItemDetail",val);//  汇率
+                    listItems.add(map);
                 }
-                ListAdapter adapter = new ArrayAdapter<String>(MyListActivity.this, android.R.layout.simple_list_item_1, arrayList);
-//                MyListActivity.m.listView.setAdapter(adapter);
-                listView.setAdapter(adapter);
+                myAdapter = new MyAdapter(MyListItem.this,
+                        R.layout.list_item,
+                        listItems);
+                listView.setAdapter(myAdapter);//extends ListActivity才有this.setListAdapter()
+                listView.setOnItemClickListener(MyListItem.this);//添加事件监听
+                listView.setOnItemLongClickListener(MyListItem.this);
+                listView.setEmptyView(findViewById(R.id.noData));
             }else if(msg.what == 5 && flag == 0 && flag2 == 0){//第一次创建
                 String str = (String) msg.obj;
                 Document doc = Jsoup.parse(str);
@@ -127,13 +147,14 @@ public class MyListActivity extends AppCompatActivity implements Runnable {
                 Element table = tables.get(0);//因为本网页只有一个table，等价于.first()
                 Elements tds = table.getElementsByTag("td");//从table中找<td>，即列
 
-                ArrayList<String> arrayList = new ArrayList<String>();
+                listItems = new ArrayList<HashMap<String, String>>();
 
-                SharedPreferences sharedPreferences = getSharedPreferences("systemTime", Activity.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("systemTime2", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("date",string);
 
                 for (int i = 0; i < tds.size(); i += 6) {
+                    HashMap<String, String> map = new HashMap<String, String>();
                     Element td1 = tds.get(i);
                     Element td2 = tds.get(i + 5);
                     String str1 = td1.text();
@@ -141,12 +162,17 @@ public class MyListActivity extends AppCompatActivity implements Runnable {
                     Log.i(TAG, "MyListActivity: " + str1 + "==>" + val);
                     editor.putString(str1,val);
                     editor.commit();
-                    arrayList.add(str1 + "==>" + val);
+                    map.put("ItemTitle",str1);//  币种
+                    map.put("ItemDetail",val);//  汇率
+                    listItems.add(map);
                 }
-                ListAdapter adapter = new ArrayAdapter<String>(MyListActivity.this, android.R.layout.simple_list_item_1, arrayList);
-//                MyListActivity.m.listView.setAdapter(adapter);
-                listView.setAdapter(adapter);
-                Toast.makeText(MyListActivity.this,"systemTime2.XML is created!!",Toast.LENGTH_SHORT).show();
+                myAdapter = new MyAdapter(MyListItem.this,
+                        R.layout.list_item,
+                        listItems);
+                listView.setAdapter(myAdapter);//extends ListActivity才有this.setListAdapter()
+                listView.setOnItemClickListener(MyListItem.this);//添加事件监听
+                listView.setOnItemLongClickListener(MyListItem.this);
+                listView.setEmptyView(findViewById(R.id.noData));
             }else if(msg.what == 5 && flag != 0){//同一天
                 String str = (String) msg.obj;
                 Document doc = Jsoup.parse(str);
@@ -154,22 +180,25 @@ public class MyListActivity extends AppCompatActivity implements Runnable {
                 Elements tables = doc.getElementsByTag("table");
                 Element table = tables.get(0);//因为本网页只有一个table，等价于.first()
                 Elements tds = table.getElementsByTag("td");//从table中找<td>，即列
-                ArrayList<String> arrayList = new ArrayList<String>();
-                SharedPreferences sharedPreferences = getSharedPreferences("systemTime", Activity.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getSharedPreferences("systemTime2", Activity.MODE_PRIVATE);
+                listItems = new ArrayList<HashMap<String, String>>();
                 for (int i = 0; i < tds.size(); i += 6) {
+                    HashMap<String, String> map = new HashMap<String, String>();
                     Element td1 = tds.get(i);
                     String str1 = td1.text();
                     String val = sharedPreferences.getString(str1,"");
-                    arrayList.add(str1 + "==>" + val);
+                    map.put("ItemTitle",str1);//  币种
+                    map.put("ItemDetail",val);//  汇率
+                    listItems.add(map);
                 }
-                ListAdapter adapter = new ArrayAdapter<String>(MyListActivity.this, android.R.layout.simple_list_item_1, arrayList);
-//                MyListActivity.m.listView.setAdapter(adapter);
-                listView.setAdapter(adapter);
-                Toast.makeText(MyListActivity.this,"Rate needn't to be updated!!",Toast.LENGTH_SHORT).show();
-
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.clear();
-//                editor.commit();
+                myAdapter = new MyAdapter(MyListItem.this,
+                        R.layout.list_item,
+                        listItems);
+                listView.setAdapter(myAdapter);//extends ListActivity才有this.setListAdapter()
+                listView.setOnItemClickListener(MyListItem.this);//添加事件监听
+                listView.setOnItemLongClickListener(MyListItem.this);
+                listView.setEmptyView(findViewById(R.id.noData));
+                Toast.makeText(MyListItem.this,"Rate needn't to be updated!!",Toast.LENGTH_SHORT).show();
             }
             super.handleMessage(msg);
         }
@@ -205,4 +234,52 @@ public class MyListActivity extends AppCompatActivity implements Runnable {
         }
     }
 
+//    实现接口AdapterView.OnItemClickListener,重写方法onItemClick获取数据
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ListView listView = findViewById(R.id.myList);
+
+        Object itemAtPosition = listView.getItemAtPosition(position);//获取ListView listView中点击的数据
+        HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
+        String titleStr = map.get("ItemTitle");
+        String detailStr = map.get("ItemDetail");
+        Log.i(TAG, "onItemClick: titleStr=" + titleStr);
+        Log.i(TAG, "onItemClick: detailStr=" + detailStr);
+
+        TextView title = (TextView) view.findViewById(R.id.itemTitle);
+        TextView detail = (TextView) view.findViewById(R.id.itemDetail);
+        String title2 = String.valueOf(title.getText());
+        String detail2 = String.valueOf(detail.getText());
+        Log.i(TAG, "onItemClick: title2=" + title2);
+        Log.i(TAG, "onItemClick: detail2=" + detail2);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("currency", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("currency",title2);
+        editor.putString("rate",detail2);
+        editor.commit();
+        Toast.makeText(this,"currency.XML is updated",Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent();
+        intent.setClass(MyListItem.this, ExchangeRate3.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("Attention")
+                .setMessage("Config Deletion?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i(TAG, "onClick: 对话框事件处理");
+                        myAdapter.remove(listView.getItemAtPosition(position));
+                    }
+                })
+                .setNeutralButton("No",null);
+        builder.create().show();;
+        return true;
+    }
 }
+

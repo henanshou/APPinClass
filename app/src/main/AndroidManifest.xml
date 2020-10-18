@@ -25,6 +25,8 @@
         <activity android:name=".ExchangeRate" />
         <activity android:name=".ExchangeRate2" />
         <activity android:name=".MyListActivity" />
+        <activity android:name=".MyListItem" />
+        <activity android:name=".ExchangeRate3" />
     </application>
 
 </manifest>

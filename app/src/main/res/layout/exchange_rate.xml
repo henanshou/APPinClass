@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:hint="input RMB"
         android:layout_gravity="center_horizontal"
         android:inputType="numberDecimal" />
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/exchange_rate"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_gravity="center_horizontal"
         android:textSize="30sp" />
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="exchangeRate"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:textSize="25sp"
         android:text="@string/dollar" />
 
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:onClick="exchangeRate"
         android:text="@string/euro"
         android:textSize="25sp" />
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:textSize="25sp"
         android:onClick="exchangeRate"
         android:text="@string/won" />
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:onClick="jumpExchangeRate2"
         android:text="@string/config"
         android:textSize="25sp" />
@@ -69,9 +69,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:onClick="jumpToListView"
         android:textSize="25sp"
         android:text="@string/show" />
+
+    <Button
+        android:id="@+id/show2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="8dp"
+        android:textSize="25sp"
+        android:onClick="jumpToListItem"
+        android:text="@string/show2" />
 
 </LinearLayout>

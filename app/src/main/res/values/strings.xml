@@ -22,5 +22,8 @@
     <string name="button12">+2 POINTS</string>
     <string name="button11">FREE THROW</string>
     <string name="reset">RESET</string>
-    <string name="show">SHOW RATE IN LIST</string>
+    <string name="show">Show Rate In List</string>
+    <string name="show2">Show Rate In List_item</string>
+    <string name="noData">No Data</string>
+    <string name="show3">Show No Data</string>
 </resources>

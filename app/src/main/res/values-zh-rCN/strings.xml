@@ -21,4 +21,7 @@
     <string name="won">韩元</string>
     <string name="config">设置汇率</string>
     <string name="show">显示汇率</string>
+    <string name="show2">改进的显示汇率</string>
+    <string name="noData">没有数据</string>
+    <string name="show3">没有数据时的显示</string>
 </resources>
