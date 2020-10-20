@@ -3,18 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-        <TextView
-            android:id="@+id/itemTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+<!--这个布局文件用于自定义listView的显示,该布局文件即列表中每行的布局样式-->
+    <TextView
+        android:id="@+id/itemTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/itemDetail"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@android:color/black"
-            android:textSize="15sp" />
+    <TextView
+        android:id="@+id/itemDetail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
 </LinearLayout>

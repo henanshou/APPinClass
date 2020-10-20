@@ -37,7 +37,8 @@ import java.util.HashMap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-/*------对MyListActivity的改进，改为用listitem显示------*/
+/*------对MyListActivity的改进,改为用listitem显示,将数据保存在了SharedPreferences生成的xml中------*/
+//若直接继承ListActivity那么需要用getListView()来获取listView对象
 public class MyListItem extends AppCompatActivity implements Runnable, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     private static final String TAG = "MyListActivity";
     int flag = 0;//0表示非同一天，否则表示同一天
@@ -132,6 +133,7 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
                     map.put("ItemDetail",val);//  汇率
                     listItems.add(map);
                 }
+//                通过加载布局文件构造View并填充相应的数据，之后修改Activity页面，使用自定义的MyAdapter
                 myAdapter = new MyAdapter(MyListItem.this,
                         R.layout.list_item,
                         listItems);
@@ -239,6 +241,7 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ListView listView = findViewById(R.id.myList);
 
+//        从ListView（即listView）中获取选中数据
         Object itemAtPosition = listView.getItemAtPosition(position);//获取ListView listView中点击的数据
         HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
         String titleStr = map.get("ItemTitle");
@@ -246,6 +249,7 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
         Log.i(TAG, "onItemClick: titleStr=" + titleStr);
         Log.i(TAG, "onItemClick: detailStr=" + detailStr);
 
+//        从View中获取选中数据
         TextView title = (TextView) view.findViewById(R.id.itemTitle);
         TextView detail = (TextView) view.findViewById(R.id.itemDetail);
         String title2 = String.valueOf(title.getText());
@@ -253,6 +257,7 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
         Log.i(TAG, "onItemClick: title2=" + title2);
         Log.i(TAG, "onItemClick: detail2=" + detail2);
 
+//        其实用Intent对象.putExtra("键",值)就可以传递币种与汇率了
         SharedPreferences sharedPreferences = getSharedPreferences("currency", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("currency",title2);
@@ -275,10 +280,11 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
                     public void onClick(DialogInterface dialog, int which) {
                         Log.i(TAG, "onClick: 对话框事件处理");
                         myAdapter.remove(listView.getItemAtPosition(position));
+//                        myAdapter.notifyDataSetChanged();通过adapter删除数据时,notifyDataSetChanged()会自动调用
                     }
                 })
                 .setNeutralButton("No",null);
-        builder.create().show();;
+        builder.create().show();
         return true;
     }
 }

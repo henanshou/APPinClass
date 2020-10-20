@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//自定义的适配器器Adapter
+//自定义的Adapter适配器MyAdapter
 public class MyAdapter extends ArrayAdapter {
     private static final String TAG = "MyAdapter";
     public MyAdapter(Context context,
@@ -20,6 +20,7 @@ public class MyAdapter extends ArrayAdapter {
         super(context, resource, list);
     }
 
+//    为列表提供显示所需要的视图
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View itemView = convertView;
