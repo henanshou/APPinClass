@@ -369,10 +369,17 @@ public class ExchangeRate extends AppCompatActivity implements Runnable{
         intent.setClass(this, MyListActivity.class);
         startActivity(intent);
     }
-//    点击后，跳转到list_item的方法
+////    点击后，跳转到list_item的方法
+//    public void jumpToListItem(View view){
+//        Intent intent = new Intent();
+//        intent.setClass(this, MyListItem.class);
+//        startActivity(intent);
+//    }
+
+//    点击后,跳转到list_item的新方法
     public void jumpToListItem(View view){
         Intent intent = new Intent();
-        intent.setClass(this, MyListItem.class);
+        intent.setClass(this, MyUpgradedListItem.class);
         startActivity(intent);
     }
 }

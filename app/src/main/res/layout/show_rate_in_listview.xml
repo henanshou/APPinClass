@@ -12,6 +12,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="-3dp"></ListView>
 
+
     <TextView
         android:id="@+id/noData"
         android:layout_width="match_parent"

@@ -122,6 +122,11 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
                 Elements tds = table.getElementsByTag("td");//从table中找<td>，即列
 
                 listItems = new ArrayList<HashMap<String, String>>();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("systemTime2", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("date",string);
+
                 for (int i = 0; i < tds.size(); i += 6) {
                     HashMap<String, String> map = new HashMap<String, String>();
                     Element td1 = tds.get(i);
@@ -129,6 +134,8 @@ public class MyListItem extends AppCompatActivity implements Runnable, AdapterVi
                     String str1 = td1.text();
                     String val = td2.text();
                     Log.i(TAG, "MyListActivity: " + str1 + "==>" + val);
+                    editor.putString(str1,val);
+                    editor.commit();
                     map.put("ItemTitle",str1);//  币种
                     map.put("ItemDetail",val);//  汇率
                     listItems.add(map);

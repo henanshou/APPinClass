@@ -14,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ExchangeRate3 extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String currency;
-    double rate;
+//    double rate;这是MyListItem用的
+    Float rate;
     TextView cur;
     EditText editText;
 
@@ -22,9 +23,11 @@ public class ExchangeRate3 extends AppCompatActivity {
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sharedPreferences = getSharedPreferences("currency", Activity.MODE_PRIVATE);
+//        sharedPreferences = getSharedPreferences("currency", Activity.MODE_PRIVATE);这是MyListItem用的
+        sharedPreferences = getSharedPreferences("currency2", Activity.MODE_PRIVATE);
         currency = sharedPreferences.getString("currency","");
-        rate = Double.parseDouble(sharedPreferences.getString("rate",""));
+//        rate = Double.parseDouble(sharedPreferences.getString("rate",""));这是MyListItem用的
+        rate = sharedPreferences.getFloat("rate",0.0f);
 
         setContentView(R.layout.exchange_rate3);
         cur = (TextView)findViewById(R.id.currency);
